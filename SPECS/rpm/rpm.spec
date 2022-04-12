@@ -1,7 +1,7 @@
 Summary:        Package manager
 Name:           rpm
 Version:        4.17.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPLv2+ AND LGPLv2+ AND BSD
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -72,11 +72,13 @@ Requires:       %{name}-build-libs
 Requires:       %{name}-devel = %{version}-%{release}
 Requires:       bzip2
 Requires:       cpio
-Requires:       debugedit
+Requires:       diffutils
 Requires:       elfutils-devel
 Requires:       elfutils-libelf
+Requires:       file
 Requires:       gzip
 Requires:       mariner-rpm-macros
+Requires:       patch
 Requires:       tar
 Requires:       unzip
 Requires:       xz
@@ -269,6 +271,9 @@ popd
 %{python3_sitelib}/*
 
 %changelog
+* Fri May 13 2022 Andy Caldwell <andycaldwell@microsoft.com> - 4.17.0-7
+- Add missing dependencies to rpmbuild (file, diff and patch)
+
 * Thu Apr 28 2022 Andrew Phelps <anphel@microsoft.com> - 4.17.0-6
 - Remove main package requires for rpm-build
 - Move debugedit requires to rpm-build subpackage
