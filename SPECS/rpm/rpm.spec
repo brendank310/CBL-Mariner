@@ -15,16 +15,20 @@ Source2:        brp-strip-unneeded
 Source3:        https://git.centos.org/rpms/python-rpm-generators/raw/c8s/f/SOURCES/python.attr
 Source4:        https://git.centos.org/rpms/python-rpm-generators/raw/c8s/f/SOURCES/pythondeps.sh
 Source5:        https://git.centos.org/rpms/python-rpm-generators/raw/c8s/f/SOURCES/pythondistdeps.py
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  debugedit
 BuildRequires:  elfutils-devel
 BuildRequires:  openssl-devel
 BuildRequires:  file-devel
+BuildRequires:  gettext
 BuildRequires:  libarchive-devel
 BuildRequires:  libcap-devel
 BuildRequires:  libselinux-devel
 BuildRequires:  lua-devel
 BuildRequires:  popt-devel
 BuildRequires:  python3-devel
+BuildRequires:  sqlite-devel
 BuildRequires:  xz-devel
 BuildRequires:  zstd-devel
 Requires:       bash
@@ -68,10 +72,11 @@ Summary:        Librpmbuild.so.* libraries needed to build rpms.
 
 %package build
 Summary:        Binaries, scripts and libraries needed to build rpms.
-Requires:       %{name}-build-libs
+Requires:       %{name}-build-libs = %{version}-%{release}
 Requires:       %{name}-devel = %{version}-%{release}
 Requires:       bzip2
 Requires:       cpio
+Requires:       debugedit
 Requires:       diffutils
 Requires:       elfutils-devel
 Requires:       elfutils-libelf
@@ -273,6 +278,7 @@ popd
 %changelog
 * Fri May 13 2022 Andy Caldwell <andycaldwell@microsoft.com> - 4.17.0-7
 - Add missing dependencies to rpmbuild (file, diff and patch)
+- Remove spurious `rpm` dependency on `rpm-build`
 
 * Thu Apr 28 2022 Andrew Phelps <anphel@microsoft.com> - 4.17.0-6
 - Remove main package requires for rpm-build
