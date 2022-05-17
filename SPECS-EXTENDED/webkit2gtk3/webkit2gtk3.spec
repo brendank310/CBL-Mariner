@@ -1,34 +1,13 @@
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
-## START: Set by rpmautospec
-## (rpmautospec version 0.2.5)
-%define autorelease(e:s:pb:) %{?-p:0.}%{lua:
-    release_number = 3;
-    base_release_number = tonumber(rpm.expand("%{?-b*}%{!?-b:1}"));
-    print(release_number + base_release_number - 1);
-}%{?-e:.%{-e*}}%{?-s:.%{-s*}}%{?dist}
-## END: Set by rpmautospec
-
-## NOTE: Lots of files in various subdirectories have the same name (such as
-## "LICENSE") so this short macro allows us to distinguish them by using their
-## directory names (from the source tree) as prefixes for the files.
-%global add_to_license_files() \
-        mkdir -p _license_files ; \
-        cp -p %1 _license_files/$(echo '%1' | sed -e 's!/!.!g')
-
-# Build documentation by default (use `rpmbuild --without docs` to override it).
-# This is used by Coverity. Coverity injects custom compiler warnings, but
-# any warning during WebKit docs build is fatal!
-%bcond_without docs
-
 Name:           webkit2gtk3
 Version:        2.36.1
-Release:        %autorelease
+Release:        1%{dist}
 Summary:        GTK Web content engine library
 
 License:        LGPLv2
 URL:            https://www.webkitgtk.org/
-Source0:        webkitgtk-%{version}.tar.xz
+Source0:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz
 
 BuildRequires:  bison
 BuildRequires:  ccache
@@ -295,8 +274,9 @@ rm -rf Source/ThirdParty/qunit/
 %endif
 
 %changelog
-- Sat May 14 2022 Sriram Nambakam <snambakam@microsoft.com> 2.36.1-1
-- Include package in Mariner
+* Sat May 14 2022 Sriram Nambakam <snambakam@microsoft.com> 2.36.1-1
+- Initial CBL-Mariner import from Fedora (license: MIT)
+- License verified
 
 * Fri Feb 04 2022 Michael Catanzaro <mcatanzaro@redhat.com> 2.35.2-3
 - Fix dependency on gst-plugins-bad
